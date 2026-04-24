@@ -1,0 +1,167 @@
+ body {
+        font-family: "Segoe UI", Arial;
+        background: #f4f6f9;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: auto;
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th {
+        background: #4CAF50;
+        color: white;
+        padding: 10px;
+    }
+
+    td {
+        border-bottom: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+
+    tr:hover {
+        background: #f1f1f1;
+    }
+
+    input {
+        padding: 6px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        text-align: center;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    button {
+        padding: 10px 14px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .add {
+        background: #2196F3;
+        color: white;
+    }
+
+    .calc {
+        background: #4CAF50;
+        color: white;
+    }
+
+    .remove {
+        background: #e74c3c;
+        color: white;
+    }
+
+    .summary {
+        margin-top: 20px;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .valor-box {
+        text-align: center;
+        margin: 15px 0;
+    }
+    
+    .reset {
+        background: #555;
+        color: white;
+    }
+
+    /* ===== RESPONSIVO ===== */
+@media (max-width: 600px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tr {
+        background: #fff;
+        margin-bottom: 12px;
+        border-radius: 10px;
+        padding: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: none;
+        padding: 6px 0;
+    }
+
+    td::before {
+        font-weight: bold;
+        color: #555;
+    }
+
+    td:nth-child(1)::before { content: "Entrada"; }
+    td:nth-child(2)::before { content: "Saída"; }
+    td:nth-child(3)::before { content: "Horas"; }
+    td:nth-child(4)::before { content: ""; }
+
+    input {
+        width: 60%;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    .summary {
+        font-size: 16px;
+    }
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controle de Horas</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div class="container">
+    <h2>⏱️ Controle de Horas Trabalhadas</h2>
+
+    <table id="tabela">
+        <thead>
+            <tr>
+                <th>Entrada</th>
+                <th>Saída</th>
+                <th>Horas</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div class="actions">
+        <button class="add" onclick="adicionarLinha()">+ Adicionar</button>
+    </div>
+
+    <div class="valor-box">
+        <label><b>Valor por hora (R$):</b></label><br>
+        <input type="number" id="valorHora" step="0.01" oninput="atualizarTotal()">
+    </div>
+
+    <div class="actions">
+        <button class="reset" onclick="resetar()">Resetar</button>
+    </div>
+
+    <div class="summary" id="resultado">
+        Nenhum cálculo ainda
+    </div>
+</div>
+
+<script>
+function adicionarLinha() {
+    const tbody = document.querySelector("#tabela tbody");
+
+    const tr = document.createElement("tr");
+
+    tr.innerHTML = `
+        <td><input type="time" class="entrada"></td>
+        <td><input type="time" class="saida" onblur="calcularLinha(this)"></td>
+        <td class="horas">0.00</td>
+        <td><button class="remove" onclick="removerLinha(this)">X</button></td>
+    `;
+
+    tbody.appendChild(tr);
+}
+
+function removerLinha(btn) {
+    btn.parentElement.parentElement.remove();
+}
+
+function calcularLinha(inputSaida) {
+    const linha = inputSaida.closest("tr");
+
+    const entrada = linha.querySelector(".entrada").value;
+    const saida = linha.querySelector(".saida").value;
+
+    if (entrada && saida) {
+        const [h1, m1] = entrada.split(":").map(Number);
+        const [h2, m2] = saida.split(":").map(Number);
+
+        let inicio = h1 * 60 + m1;
+        let fim = h2 * 60 + m2;
+
+        let diff = fim - inicio;
+        if (diff < 0) diff += 24 * 60;
+
+        const horas = diff / 60;
+
+        linha.querySelector(".horas").innerText = horas.toFixed(2);
+    }
+
+    atualizarTotal();
+}
+
+function atualizarTotal() {
+    const linhas = document.querySelectorAll("#tabela tbody tr");
+    let totalHoras = 0;
+
+    linhas.forEach(linha => {
+        const horas = parseFloat(linha.querySelector(".horas").innerText) || 0;
+        totalHoras += horas;
+    });
+
+    const valorHora = parseFloat(document.getElementById("valorHora").value) || 0;
+    const total = totalHoras * valorHora;
+
+    document.getElementById("resultado").innerHTML =
+        `<b>Total de horas:</b> ${totalHoras.toFixed(2)}h <br>
+         <b>Total a receber:</b> R$ ${total.toFixed(2)}`;
+}
+
+function resetar() {
+    const tbody = document.querySelector("#tabela tbody");
+
+    tbody.innerHTML = "";
+
+    document.getElementById("valorHora").value = "";
+
+    document.getElementById("resultado").innerText = "Nenhum cálculo ainda";
+
+    adicionarLinha();
+}
+
+adicionarLinha();
+</script>
+
+</body>
+</html>
